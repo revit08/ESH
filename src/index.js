@@ -12,9 +12,8 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import Container from 'react-bootstrap/Container';
-
 import Home from './pages/Home';
+import Students from './pages/Students';
 import Products from './pages/Products';
 import Liked from './pages/Liked';
 import Cart from './pages/Cart';
@@ -28,7 +27,6 @@ import PrivateRoute from './components/PrivateRoute';
 import rootReducer from './store/reducers';
 
 import './index.css';
-import './fakebackend/axiosData';
 
 const Root = () => {
   //
@@ -48,27 +46,21 @@ const Root = () => {
     <Router>
       <Provider store={store}>
         <Header />
-        <Container className="margin-top">
-          <Switch>
-            <Route path="/home" exact component={Home} />
-            <Route path="/products" exact component={Products} />
-            <Route path="/liked" exact component={Liked} />
-            <Route
-              path="/product-details/:id"
-              exact
-              component={ProductDetails}
-            />
-            <Route path="/cart" component={Cart} />
-            <Route path="/login" component={Login} />
-            <PrivateRoute path="/profile" component={Profile} />
-            <Route path="/error" component={Error} />
-            <Route exact path="/">
-              <Redirect to="/home" />
-            </Route>
-            <Redirect to="/error" />
-          </Switch>
-          <MyToast />
-        </Container>
+        <Switch>
+          <Route path="/home" exact component={Home} />
+          <Route path="/students" exact component={Students} />
+          <Route path="/liked" exact component={Liked} />
+          <Route path="/product-details/:id" exact component={ProductDetails} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/profile" component={Profile} />
+          <Route path="/error" component={Error} />
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
+          <Redirect to="/error" />
+        </Switch>
+        <MyToast />
       </Provider>
     </Router>
   );

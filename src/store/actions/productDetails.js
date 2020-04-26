@@ -1,19 +1,18 @@
 import * as Types from '../types';
 import axios from 'axios';
 
-import { getProductPromise } from '../../fakebackend/promiseData';
 import { showToast } from './toast';
 
 export const loadProductInit = () => ({
   type: Types.LOAD_PRODUCT_INIT,
 });
 
-export const loadProductError = error => dispatch => {
+export const loadProductError = (error) => (dispatch) => {
   dispatch({ type: Types.LOAD_PRODUCT_ERROR, payload: error });
   dispatch(showToast({ title: 'Error', text: error }));
 };
 
-export const loadProductSuccess = product => ({
+export const loadProductSuccess = (product) => ({
   type: Types.LOAD_PRODUCT_SUCCESS,
   payload: product,
 });

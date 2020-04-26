@@ -1,7 +1,7 @@
 export const insertAdvert = (products, adverts, insertAtIndex) => {
   let advertIndex = 0;
   let resultArr = [];
-  const justProducts = products.filter(product => !product.isAdvert);
+  const justProducts = products;
 
   if (justProducts.length <= insertAtIndex) return justProducts;
 

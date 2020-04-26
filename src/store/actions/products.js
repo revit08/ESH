@@ -3,17 +3,7 @@ import { showToast } from './toast';
 import axios from 'axios';
 import qs from 'qs';
 
-import {
-  getProductsPromise,
-  getAdvertisementsPromise,
-} from '../../fakebackend/promiseData';
-
-import { insertAdvert } from '../../utils';
-
-let adverts = [];
-let productsCache = [];
-
-export const loadProductsInit = isLoadMoreRequest => ({
+export const loadProductsInit = (isLoadMoreRequest) => ({
   type: isLoadMoreRequest
     ? Types.LOAD_MORE_PRODUCTS_INIT
     : Types.LOAD_PRODUCTS_INIT,
@@ -59,20 +49,12 @@ export const loadProducts = (params, isLoadMoreRequest, callback) => async (
 
   errorHandler(
     async (params, isLoadMoreRequest, callback) => {
-      if (!isLoadMoreRequest) {
-        const response = await axios.get('/adverts');
-        adverts = response.data;
-        //adverts = await getAdvertisementsPromise();
-      }
-
-      const strParams = qs.stringify(params);
-      const response = await axios.get(`/products?${strParams}`);
+      const baseUrl =
+        'https://revit8apps.netlify.app/.netlify/functions/students-read-all';
+      const response = await axios.get(baseUrl);
       const products = response.data;
 
-      // const products = await getProductsPromise(params);
-
-      // console.log(moreProducts.map(p => p[params.sort.key]));
-      const productsWithAdverts = insertAdvert(products, adverts, 5);
+      const productsWithAdverts = products;
       dispatch(loadProductsSuccess(isLoadMoreRequest, productsWithAdverts));
       if (callback) callback();
     },
