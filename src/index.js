@@ -18,6 +18,10 @@ import Footer from './components/Footer/Footer';
 import Home from './pages/Home';
 import Students from './pages/Students';
 import Staffs from './pages/Staffs';
+import Page from './pages/Page';
+import NewsEvents from './pages/NewsEvents';
+import Article from './pages/Article';
+
 import Liked from './pages/Liked';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -53,6 +57,10 @@ const Root = () => {
             <Route path="/home" exact component={Home} />
             <Route path="/students" exact component={Students} />
             <Route path="/staffs" exact component={Staffs} />
+
+            <Route path="/page/:id" exact component={Page} />
+            <Route path="/news-events" exact component={NewsEvents} />
+            <Route path="/article/:id" exact component={Article} />
             <Route path="/liked" exact component={Liked} />
             <Route
               path="/product-details/:id"

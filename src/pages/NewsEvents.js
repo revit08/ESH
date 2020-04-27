@@ -7,39 +7,56 @@ import Col from 'react-bootstrap/Col';
 
 import Container from 'react-bootstrap/Container';
 import PageTitle from '../components/PageTitle/PageTitle';
-import UserCard from '../components/UserCard/UserCard';
+import ArticleCard from '../components/Content/ArticleCard';
 import MySpinner from '../components/MySpinner';
 
-import { loadStaffs } from '../store/actions/staffs';
+import { loadArticles } from '../store/actions/articles';
 import { setPageToLoad } from '../store/actions/header';
 
-const Staffs = ({
-  staffs: { isLoading, staffs, hasMoreItems, error },
-  loadStaffs,
+const NewsEvents = ({
+  articles: { isLoading, articles, hasMoreItems, error },
+  loadArticles,
   header,
   setPageToLoad,
 }) => {
   // did mount
   useEffect(() => {
-    loadStaffs();
+    loadArticles();
   }, []);
 
-  console.log(staffs);
+  function getId(todo) {
+    if (!todo.ref) {
+      return null;
+    }
+    return todo.ref['@ref'].id;
+  }
+
+  console.log(articles);
   if (error) return <Redirect to={'/error'} />;
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
-  console.log('Staffs', staffs);
+  console.log('articles', articles);
   return (
     <Fragment>
-      <PageTitle title="StaffS" desc="StaffS" />
+      <PageTitle title="News & Events" desc="articles" />
       <Container className="margin-top">
         <Row className="mb-3">
-          {staffs && staffs.map((user, i) => <UserCard user={user} key={i} />)}
+          {articles &&
+            articles.map((data, i) => (
+              <div className="col-md-6 ">
+                <ArticleCard
+                  data={data.data}
+                  ts={data.ts}
+                  id={getId(data)}
+                  key={getId(data)}
+                />
+              </div>
+            ))}
         </Row>
       </Container>
       {error && (
         <Row className="mb-3">
           <Col>
-            <h4 className="text-center">No Staffs</h4>
+            <h4 className="text-center">No articles</h4>
           </Col>
         </Row>
       )}
@@ -49,8 +66,8 @@ const Staffs = ({
 
 export default connect(
   (state) => ({
-    staffs: state.staffsReducer,
+    articles: state.articlesReducer,
     header: state.headerReducer,
   }),
-  { loadStaffs, setPageToLoad },
-)(Staffs);
+  { loadArticles, setPageToLoad },
+)(NewsEvents);

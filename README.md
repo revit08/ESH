@@ -1,6 +1,6 @@
-# Eshop page
+# Revit React Hook Redux
 
-Simple ecommerce website made with React Hooks and Redux.
+Simple community website made with React Hooks and Redux.
 
 ## Demo and Codesandbox
 
@@ -12,23 +12,13 @@ Simple ecommerce website made with React Hooks and Redux.
 - Home, Products, Product Details, Liked, Cart, Login, Profile and Error pages
 - State management with Redux
 - Responsive design with Bootstrap
-- Products pagination with infinite scroll
-- Insert Advertisements at every N products
-- Products sorting by price, weight, size asc and desc
-- Product filtering by brand and color
-- Ability to like the products (wishlist)
-- Product Details page with image magnify
-- Cart with increment, decrement and remove product abilities
+- User Details page
 - Local Login/Register with Formik validation
 - Login with Google OAuth, client side auth
 - Profile page is behind protected route
 - Product card with loader for image loading
 - Toast messages for adding, liking a product, login/logout with Google/Local and network errors
 - Loading state with spinner with text or default spinner
-- Two fake backends with Promise and Axios-Mock-Adapter strategies
-- Config file with settable pagination page size, advertisement index and fake backend delay
-- Dynamic data creation and randomizing with Faker
-- Dynamic carousel width with React Container Dimensions and image cropping with `object-fit:cover`
 
 ## Libraries used
 
@@ -41,21 +31,3 @@ Simple ecommerce website made with React Hooks and Redux.
 
 - `npm install`
 - `npm run start` app wil be loaded on `http://localhost:3002`
-
-## Screenshots
-
-![Screenshot1](/screenshots/Screenshot_1.png)
-
-![Screenshot2](/screenshots/Screenshot_2.png)
-
-![Screenshot3](/screenshots/Screenshot_3.png)
-
-![Screenshot4](/screenshots/Screenshot_4.png)
-
-![Screenshot5](/screenshots/Screenshot_5.png)
-
-![Screenshot6](/screenshots/Screenshot_6.png)
-
-![Screenshot7](/screenshots/Screenshot_7.png)
-
-![Screenshot8](/screenshots/Screenshot_8.png)

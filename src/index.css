@@ -2575,7 +2575,7 @@ a:hover {
 
 @media (min-width: 768px) {
   .podcast-entry .text {
-    width: calc(100% - 300px);
+    /* width: calc(100% - 300px);*/
   }
 }
 

@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -6,32 +8,37 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import './styles.css';
+import Container from 'react-bootstrap/Container';
 
-const Home = () => {
-  const [index, setIndex] = useState(0);
-  const menuOne = [
-    {
-      class: 'students',
-      link: 'students',
-      title: 'STUDENTS',
-      desc: '64 MEMBERS',
-    },
-    {
-      class: 'staffs',
-      link: 'staffs',
-      title: 'STAFFS',
-      desc: 'From All Department',
-    },
-    { class: 'events', link: 'page/about', title: 'ABOUT', desc: 'SINCE 2004' },
-    {
-      class: 'college',
-      link: 'page/college',
-      title: 'COLLEGE',
-      desc: 'Other Links',
-    },
-  ];
+import ArticleCard from '../../components/Content/ArticleCard';
+import MySpinner from '../../components/MySpinner';
 
+import { loadArticles } from '../../store/actions/articles';
+import { setPageToLoad } from '../../store/actions/header';
+
+import { menuAll } from '../../constants/Menu';
+const Home = ({
+  articles: { isLoading, articles, hasMoreItems, error },
+  loadArticles,
+  header,
+  setPageToLoad,
+}) => {
+  // did mount
+  useEffect(() => {
+    loadArticles();
+  }, []);
+
+  function getId(todo) {
+    if (!todo.ref) {
+      return null;
+    }
+    return todo.ref['@ref'].id;
+  }
+
+  console.log(articles);
+  if (error) return <Redirect to={'/error'} />;
+  if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
+  console.log('articles', articles);
   const today = new Date();
   const lastWd = '2004-06-02';
   //... units can be [seconds, minutes, hours, days, weeks, months, year
@@ -45,7 +52,7 @@ const Home = () => {
   const dayos = days - daysd + thismonthdiff;
 
   return (
-    <>
+    <Fragment>
       <div className="site-blocks-cover bg-grouppic  overlay">
         <div className="container">
           <div className="row align-items-center justify-content-center">
@@ -85,7 +92,7 @@ const Home = () => {
             </div>
           </div>
           <div className="row">
-            {menuOne.map((menu, i) => (
+            {menuAll.homeMenu.map((menu, i) => (
               <div className="col-md-6 col-lg-3">
                 <LinkContainer
                   to={menu.link}
@@ -116,41 +123,36 @@ const Home = () => {
             </div>
           </div>
           <div className="row">
-            <div
-              className="col-md-6 col-lg-4 mb-4 mb-lg-0"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <a href="single.html">
-                <img src="images/img_4.jpg" alt="Image" className="img-fluid" />
-              </a>
-              <div className="p-4 bg-white">
-                <span className="d-block text-secondary small text-uppercase">
-                  Jan 20th, 2019
-                </span>
-                <h2 className="h5 text-black mb-3">
-                  <a href="single.html">This Is The Day, Party, Party!</a>
-                </h2>
-              </div>
-            </div>
+            {articles &&
+              articles.map((data, i) => (
+                <div className="col-md-12  col-lg-4">
+                  <ArticleCard
+                    data={data.data}
+                    ts={data.ts}
+                    id={getId(data)}
+                    key={getId(data)}
+                  />
+                </div>
+              ))}
           </div>
         </div>
       </div>
-      <Row className="my-5">
-        <Col xs={6} className="mx-auto">
-          <blockquote className="blockquote text-center">
-            <p className="mb-0">
-              Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis
-              natoque penatibus et magnis dis parturient montes.
-            </p>
-            <footer className="blockquote-footer">
-              Someone famous in <cite title="Source Title">Source Title</cite>
-            </footer>
-          </blockquote>
-        </Col>
-      </Row>
-    </>
+
+      {error && (
+        <Row className="mb-3">
+          <Col>
+            <h4 className="text-center">No articles</h4>
+          </Col>
+        </Row>
+      )}
+    </Fragment>
   );
 };
 
-export default Home;
+export default connect(
+  (state) => ({
+    articles: state.articlesReducer,
+    header: state.headerReducer,
+  }),
+  { loadArticles, setPageToLoad },
+)(Home);

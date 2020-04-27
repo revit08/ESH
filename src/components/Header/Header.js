@@ -27,6 +27,7 @@ import { config } from '../../services/config';
 import './styles.css';
 
 const Header = ({
+  nav,
   location,
   header,
 
@@ -60,6 +61,7 @@ const Header = ({
     return user;
   }
 
+  const { navMenu } = nav;
   return (
     <Navbar
       collapseOnSelect
@@ -73,21 +75,15 @@ const Header = ({
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto" activeKey={pathname}>
-            <LinkContainer to="/home">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/students">
-              <Nav.Link>Students</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/staffs">
-              <Nav.Link>Staffs</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/page/about">
-              <Nav.Link>About</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/page/college">
-              <Nav.Link>Connections</Nav.Link>
-            </LinkContainer>
+            {navMenu.map((menu, i) => (
+              <LinkContainer
+                key={`footermenuLink${i}`}
+                to={menu.link}
+                className={`${menu.class}`}
+              >
+                <Nav.Link>{menu.title}</Nav.Link>
+              </LinkContainer>
+            ))}
 
             {/**
              * <LinkContainer to="/liked">
