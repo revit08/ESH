@@ -5,9 +5,6 @@ import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 import ReactImageMagnify from 'react-image-magnify';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
 import MySpinner from '../../components/MySpinner';
 
 import { loadProduct } from '../../store/actions/productDetails';
@@ -53,7 +50,7 @@ const ProductDetails = ({
   function isLiked() {
     const isLiked =
       liked.likedProducts.length > 0 &&
-      liked.likedProducts.find(p => p.id === product.id);
+      liked.likedProducts.find((p) => p.id === product.id);
     return isLiked;
   }
 
@@ -76,7 +73,7 @@ const ProductDetails = ({
   function isAdded() {
     const isAdded =
       cart.cartProducts.length > 0 &&
-      cart.cartProducts.find(p => p.product.id === product.id);
+      cart.cartProducts.find((p) => p.product.id === product.id);
     return isAdded;
   }
   if (error) return <Redirect to={'/error'} />;
@@ -90,18 +87,19 @@ const ProductDetails = ({
           <aside className="col-sm-5 border-right">
             <div>
               <img
+                alt=""
                 className="main-img d-md-none"
-                src={require(`../../static/products/${product.image}`)}
+                src={require(`../../static/${product.image}`)}
               />
               <ReactImageMagnify
                 {...{
                   smallImage: {
                     alt: product.shortDescription,
                     isFluidWidth: true,
-                    src: require(`../../static/products/${product.image}`),
+                    src: require(`../../static/${product.image}`),
                   },
                   largeImage: {
-                    src: require(`../../static/products/${product.image}`),
+                    src: require(`../../static/${product.image}`),
                     width: 1200,
                     height: 1200,
                   },
@@ -192,7 +190,7 @@ const ProductDetails = ({
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     productDetails: state.productDetailsReducer,
     cart: state.cartReducer,
     liked: state.likedReducer,

@@ -1,30 +1,34 @@
 import * as Types from '../types';
+import { config } from '../../services/config';
 
 const initialState = {
   isLoading: false,
   error: null,
-  product: null,
+  staffs: [],
+  hasMoreItems: true,
 };
 
-const productDetailsReducer = (state = initialState, { type, payload }) => {
+const staffsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case Types.LOAD_PRODUCT_INIT:
+    case Types.LOAD_STAFFS_INIT:
       return {
         ...state,
         isLoading: true,
       };
-    case Types.LOAD_PRODUCT_ERROR:
+    case Types.LOAD_STAFFS_ERROR:
       return {
         ...state,
         isLoading: false,
+        hasMoreItems: false,
         error: payload,
       };
-    case Types.LOAD_PRODUCT_SUCCESS:
+    case Types.LOAD_STAFFS_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        hasMoreItems: payload.length > config.pageSize,
         error: null,
-        product: payload,
+        staffs: payload,
       };
 
     default:
@@ -32,4 +36,4 @@ const productDetailsReducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export default productDetailsReducer;
+export default staffsReducer;

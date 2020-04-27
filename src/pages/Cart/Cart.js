@@ -45,7 +45,7 @@ const Cart = ({
                       <Link to={`/product-details/${product.id}`}>
                         <img
                           className="img-responsive cart-img-obj-fit"
-                          src={require(`../../static/products/${product.image}`)}
+                          src={require(`../../static/${product.image}`)}
                           alt="prewiew"
                           width="120"
                           height="80"
@@ -133,7 +133,7 @@ const Cart = ({
                   <b>
                     $
                     {cartProducts
-                      .map(p => p.product.price * p.quantity)
+                      .map((p) => p.product.price * p.quantity)
                       .reduce((a, b) => a + b, 0)
                       .toFixed(2)}
                   </b>
@@ -148,7 +148,7 @@ const Cart = ({
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     cart: state.cartReducer,
   }),
   { addProductToCart, removeProductFromCart, removeProductsFromCart },

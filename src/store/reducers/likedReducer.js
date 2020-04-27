@@ -1,5 +1,4 @@
 import * as Types from '../types';
-import { config } from '../../services/config';
 
 const initialState = {
   likedProducts: [],
@@ -15,7 +14,7 @@ const likedReducer = (state = initialState, { type, payload }) => {
     case Types.UNLIKE_PRODUCT:
       return {
         ...state,
-        likedProducts: state.likedProducts.filter(p => p.id !== payload.id),
+        likedProducts: state.likedProducts.filter((p) => p.id !== payload.id),
       };
 
     default:

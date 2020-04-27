@@ -3,7 +3,7 @@ body {
   line-height: 1.7;
   color: #fff;
   font-weight: 400;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-family: Poppins, sans-serif;
   background: #222831;
 }
@@ -823,6 +823,7 @@ a:hover {
 
 .site-blocks-cover.overlay {
   position: relative;
+  opacity: 1;
 }
 
 .site-blocks-cover.overlay:before {

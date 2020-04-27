@@ -7,7 +7,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import Product from '../../components/Product';
-import Advertisement from '../../components/Advertisement';
 import MySpinner from '../../components/MySpinner';
 import './styles.css';
 
@@ -67,11 +66,7 @@ const Products = ({
         initialLoad={false}
       >
         {products.map((product, i) =>
-          product.isAdvert ? (
-            <Advertisement {...product} key={i} />
-          ) : (
-            <Product product={product} key={i} />
-          ),
+          <Product product={product} key={i} />
         )}
       </InfiniteScroll>
       {!error && !hasMoreItems && (

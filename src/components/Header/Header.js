@@ -79,8 +79,18 @@ const Header = ({
             <LinkContainer to="/students">
               <Nav.Link>Students</Nav.Link>
             </LinkContainer>
+            <LinkContainer to="/staffs">
+              <Nav.Link>Staffs</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/page/about">
+              <Nav.Link>About</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/page/college">
+              <Nav.Link>Connections</Nav.Link>
+            </LinkContainer>
 
-            <LinkContainer to="/liked">
+            {/**
+             * <LinkContainer to="/liked">
               <Nav.Link>
                 <i className="fa fa-heart"></i> Liked{' '}
                 {liked.likedProducts.length > 0 && (
@@ -90,6 +100,7 @@ const Header = ({
                 )}
               </Nav.Link>
             </LinkContainer>
+             */}
           </Nav>
           <Nav activeKey={pathname}>
             {!getCurrentUser() ? (
@@ -118,7 +129,7 @@ const Header = ({
                         src={
                           getCurrentUser() === 'google'
                             ? auth.googleUser.imageUrl
-                            : require(`../../static/products/mepps1.jpg`)
+                            : require(`../../static/user.png`)
                         }
                         className="user-img"
                       />

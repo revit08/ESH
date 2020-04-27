@@ -1,5 +1,4 @@
 import * as Types from '../types';
-import { config } from '../../services/config';
 
 const initialState = {
   cartProducts: [],

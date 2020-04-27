@@ -1,7 +1,6 @@
 import * as Types from '../types';
-import { config } from '../../services/config';
 
-export const showToast = data => ({
+export const showToast = (data) => ({
   type: Types.SHOW_TOAST,
   payload: data,
 });

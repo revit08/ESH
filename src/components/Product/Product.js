@@ -46,7 +46,7 @@ const Product = ({
   function isLiked() {
     const isLiked =
       liked.likedProducts.length > 0 &&
-      liked.likedProducts.find(p => p.id === product.id);
+      liked.likedProducts.find((p) => p.id === product.id);
     return isLiked;
   }
 
@@ -62,7 +62,7 @@ const Product = ({
   function isAdded() {
     const isAdded =
       cart.cartProducts.length > 0 &&
-      cart.cartProducts.find(p => p.product.id === product.id);
+      cart.cartProducts.find((p) => p.product.id === product.id);
     return isAdded;
   }
 
@@ -103,7 +103,7 @@ const Product = ({
             <Card.Img
               className="product-img"
               variant="top"
-              src={require(`../../static/products/${image}`)}
+              src={require(`../../static/${image}`)}
               alt="Vans"
               onLoad={imageLoaded}
             />
@@ -136,7 +136,7 @@ const Product = ({
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     liked: state.likedReducer,
     cart: state.cartReducer,
   }),

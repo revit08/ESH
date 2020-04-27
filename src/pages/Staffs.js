@@ -10,37 +10,36 @@ import PageTitle from '../components/PageTitle/PageTitle';
 import UserCard from '../components/UserCard/UserCard';
 import MySpinner from '../components/MySpinner';
 
-import { loadStudents } from '../store/actions/students';
+import { loadStaffs } from '../store/actions/staffs';
 import { setPageToLoad } from '../store/actions/header';
 
-const Students = ({
-  students: { isLoading, students, hasMoreItems, error },
-  loadStudents,
+const Staffs = ({
+  staffs: { isLoading, staffs, hasMoreItems, error },
+  loadStaffs,
   header,
   setPageToLoad,
 }) => {
   // did mount
   useEffect(() => {
-    loadStudents();
+    loadStaffs();
   }, []);
 
-  //console.log(Students);
+  console.log(staffs);
   if (error) return <Redirect to={'/error'} />;
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
-  console.log('Students', students);
+  console.log('Staffs', staffs);
   return (
     <Fragment>
-      <PageTitle title="STUDENTS" desc="STUDENTS" />
+      <PageTitle title="StaffS" desc="StaffS" />
       <Container className="margin-top">
         <Row className="mb-3">
-          {students &&
-            students.map((user, i) => <UserCard user={user} key={i} />)}
+          {staffs && staffs.map((user, i) => <UserCard user={user} key={i} />)}
         </Row>
       </Container>
       {!error && !hasMoreItems && (
         <Row className="mb-3">
           <Col>
-            <h4 className="text-center">No Students</h4>
+            <h4 className="text-center">No Staffs</h4>
           </Col>
         </Row>
       )}
@@ -50,8 +49,8 @@ const Students = ({
 
 export default connect(
   (state) => ({
-    students: state.studentsReducer,
+    staffs: state.staffsReducer,
     header: state.headerReducer,
   }),
-  { loadStudents, setPageToLoad },
-)(Students);
+  { loadStaffs, setPageToLoad },
+)(Staffs);

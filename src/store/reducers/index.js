@@ -1,4 +1,5 @@
-import productsReducer from './productsReducer';
+import studentsReducer from './studentsReducer';
+import staffsReducer from './studentsReducer';
 import headerReducer from './headerReducer';
 import likedReducer from './likedReducer';
 import cartReducer from './cartReducer';
@@ -8,7 +9,8 @@ import authReducer from './authReducer';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
-  productsReducer,
+  studentsReducer,
+  staffsReducer,
   headerReducer,
   likedReducer,
   cartReducer,

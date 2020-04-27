@@ -1,31 +1,26 @@
 import * as Types from '../types';
 import { showToast } from './toast';
 import axios from 'axios';
+import qs from 'qs';
 
-export const loadProductsInit = (isLoadMoreRequest) => ({
-  type: isLoadMoreRequest
-    ? Types.LOAD_MORE_PRODUCTS_INIT
-    : Types.LOAD_PRODUCTS_INIT,
+export const loadStudentsInit = () => ({
+  type: Types.LOAD_STUDENTS_INIT,
 });
 
-export const loadProductsError = (isLoadMoreRequest, error) => (
+export const loadStudentsError = (, error) => (
   dispatch,
   getState,
 ) => {
   dispatch(showToast({ title: 'Error', text: error }));
   dispatch({
-    type: isLoadMoreRequest
-      ? Types.LOAD_MORE_PRODUCTS_ERROR
-      : Types.LOAD_PRODUCTS_ERROR,
+    type: Types.LOAD_STUDENTS_ERROR,
     payload: error,
   });
 };
 
-export const loadProductsSuccess = (isLoadMoreRequest, products) => ({
-  type: isLoadMoreRequest
-    ? Types.LOAD_MORE_PRODUCTS_SUCCESS
-    : Types.LOAD_PRODUCTS_SUCCESS,
-  payload: products,
+export const loadStudentsSuccess = ( students) => ({
+  type:  Types.LOAD_STUDENTS_SUCCESS,
+  payload: students,
 });
 
 const errorHandler = (successfn, errorAction, dispatch) => {
@@ -40,26 +35,26 @@ const errorHandler = (successfn, errorAction, dispatch) => {
   };
 };
 
-export const loadProducts = (params, isLoadMoreRequest, callback) => async (
+export const loadStudents = (params, callback) => async (
   dispatch,
   getState,
 ) => {
-  dispatch(loadProductsInit(isLoadMoreRequest));
+  dispatch(loadStudentsInit());
 
   errorHandler(
-    async (params, isLoadMoreRequest, callback) => {
+    async (params, callback) => {
       const baseUrl =
         'https://revit8apps.netlify.app/.netlify/functions/students-read-all';
       const response = await axios.get(baseUrl);
-      const products = response.data;
+      const students = response.data;
 
-      const productsWithAdverts = products;
-      dispatch(loadProductsSuccess(isLoadMoreRequest, productsWithAdverts));
+      const studentsWithAdverts = students;
+      dispatch(loadStudentsSuccess, studentsWithAdverts));
       if (callback) callback();
     },
-    loadProductsError,
+    loadStudentsError,
     dispatch,
-  )(params, isLoadMoreRequest, callback);
+  )(params, callback);
 };
 
 //snackbars, errors handling, css cards hoover

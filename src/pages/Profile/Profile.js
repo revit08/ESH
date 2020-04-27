@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Tabs from 'react-bootstrap/Tabs';
@@ -19,7 +18,7 @@ const Profile = ({ auth }) => {
       user = auth.googleUser;
     } else if (auth.localUser) {
       user = auth.localUser; //name, email
-      user.imageUrl = require(`../../static/products/mepps1.jpg`);
+      user.imageUrl = require(`../../static/user.png`);
     }
     return user;
   }
@@ -33,6 +32,7 @@ const Profile = ({ auth }) => {
               <div className="d-flex justify-content-start">
                 <div className="image-container">
                   <img
+                    alt=""
                     src={getCurrentUser().imageUrl}
                     style={{
                       width: 150,
@@ -113,7 +113,7 @@ const Profile = ({ auth }) => {
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     auth: state.authReducer,
   }),
   {},

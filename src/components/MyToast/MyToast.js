@@ -23,7 +23,7 @@ const MyToast = ({ toast: { show, title, text }, showToast, hideToast }) => {
       >
         <Toast.Header>
           <img
-            src={require(`../../static/products/mepps1.jpg`)}
+            src={require(`../../static/user.png`)}
             style={{ width: 20, height: 20, objectFit: 'cover' }}
             className="rounded mr-2"
             alt=""

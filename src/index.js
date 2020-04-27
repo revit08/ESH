@@ -7,26 +7,28 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-
+import { menuAll } from './constants/Menu';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
+import Header from './components/Header';
+
+import Footer from './components/Footer/Footer';
 import Home from './pages/Home';
 import Students from './pages/Students';
-import Products from './pages/Products';
+import Staffs from './pages/Staffs';
 import Liked from './pages/Liked';
-import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import ProductDetails from './pages/ProductDetails';
 import Error from './pages/Error';
-import Header from './components/Header';
 import MyToast from './components/MyToast';
 import PrivateRoute from './components/PrivateRoute';
 import rootReducer from './store/reducers';
 
 import './index.css';
+import './app.css';
 
 const Root = () => {
   //
@@ -45,21 +47,28 @@ const Root = () => {
   return (
     <Router>
       <Provider store={store}>
-        <Header />
-        <Switch>
-          <Route path="/home" exact component={Home} />
-          <Route path="/students" exact component={Students} />
-          <Route path="/liked" exact component={Liked} />
-          <Route path="/product-details/:id" exact component={ProductDetails} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/login" component={Login} />
-          <PrivateRoute path="/profile" component={Profile} />
-          <Route path="/error" component={Error} />
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-          <Redirect to="/error" />
-        </Switch>
+        <Header nav={menuAll} />
+        <div className="pageContainer">
+          <Switch>
+            <Route path="/home" exact component={Home} />
+            <Route path="/students" exact component={Students} />
+            <Route path="/staffs" exact component={Staffs} />
+            <Route path="/liked" exact component={Liked} />
+            <Route
+              path="/product-details/:id"
+              exact
+              component={ProductDetails}
+            />
+            <Route path="/login" component={Login} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <Route path="/error" component={Error} />
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+            <Redirect to="/error" />
+          </Switch>
+        </div>
+        <Footer nav={menuAll} />
         <MyToast />
       </Provider>
     </Router>
