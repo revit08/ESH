@@ -8,33 +8,32 @@ import MySpinner from '../components/MySpinner';
 import PageTitle from '../components/PageTitle/PageTitle';
 import PageContent from '../components/Content/PageContent';
 
-import { loadPage } from '../store/actions/pageDetails';
+import { loadArticle } from '../store/actions/articleDetails';
 import { showToast, hideToast } from '../store/actions/toast';
 
 const Article = ({
-  pageDetails,
-  loadPage,
+  articleDetails,
+  loadArticle,
   match,
   liked,
   showToast,
   hideToast,
 }) => {
-  const { page, isLoading, error } = pageDetails;
+  const { article, isLoading, error } = articleDetails;
 
   useEffect(() => {
-    loadPage(match.params.id);
+    loadArticle(match.params.id);
   }, []);
 
   if (error) return <Redirect to={'/error'} />;
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
 
-  console.log(pageDetails);
-  const data = pageDetails.page;
+  console.log(article);
   return (
-    page && (
+    article && (
       <Fragment>
-        <PageTitle title={data.title} desc="" />
-        <PageContent data={data} />
+        <PageTitle title={article.data.title} desc="" />
+        <PageContent data={article.data} />
       </Fragment>
     )
   );
@@ -42,12 +41,12 @@ const Article = ({
 
 export default connect(
   (state) => ({
-    pageDetails: state.pageDetailsReducer,
+    articleDetails: state.articleDetailsReducer,
     cart: state.cartReducer,
     liked: state.likedReducer,
   }),
   {
-    loadPage,
+    loadArticle,
 
     showToast,
     hideToast,

@@ -26,4 +26,9 @@ export const apiConfig = {
     url: 'articles-read-all',
     method: 'GET',
   },
+  article: {
+    name: 'articles',
+    url: 'articles-read',
+    method: 'GET',
+  },
 };

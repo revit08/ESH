@@ -36,9 +36,8 @@ export const loadArticle = (id, callback) => async (dispatch, getState) => {
   errorHandler(
     async (id, callback) => {
       const baseUrl = `${apiConfig.base}${apiConfig.article.url}`;
-      const uid = apiConfig.page.pages[id];
-      console.log(uid);
-      const response = await axios.get(`${baseUrl}/${uid}`);
+
+      const response = await axios.get(`${baseUrl}/${id}`);
       const page = response.data;
       dispatch(loadArticleSuccess(page));
 
