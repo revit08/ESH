@@ -12,7 +12,9 @@ const PageContent = ({ data }) => {
             <div className="site-section-heading text-left mb-5 w-border">
               <h2>{title}</h2>
               <br />
-              {description}
+    <div className={className}
+  dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />')}} />
+             
             </div>
           </div>
         </div>
