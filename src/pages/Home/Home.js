@@ -93,7 +93,7 @@ const Home = ({
           </div>
           <div className="row">
             {menuAll.homeMenu.map((menu, i) => (
-              <div className="col-md-6 col-lg-3">
+              <div className="col-md-6 col-lg-3 mb-5">
                 <LinkContainer
                   to={menu.link}
                   className={`unit-9 unit-${menu.class}`}

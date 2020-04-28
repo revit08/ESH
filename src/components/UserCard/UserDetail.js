@@ -21,10 +21,10 @@ const UserDetail = ({ user, type }) => {
             <div className="mh-header-info">
               {data.spr && (
                 <div className="mh-promo wow fadeInUp">
-                  <span>data.spr </span>
+                  <span>{data.spr} </span>
                 </div>
               )}
-
+              <br />
               <h5> Personal and Contact Infomation</h5>
               <p>{data.description || ''}</p>
               <hr />
@@ -95,7 +95,6 @@ const UserDetail = ({ user, type }) => {
                   </ul>
                 </div>
               )}
-
               <hr />
               <h5> In Social</h5>
               <ul className="social-icon wow fadeInUp">
