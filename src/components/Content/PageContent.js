@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import TimeLine from '../Common/TimeLine';
 const PageContent = ({ data }) => {
-  const { description } = data;
+  const { description, content } = data;
 
   return (
     <>
@@ -18,6 +19,16 @@ const PageContent = ({ data }) => {
                   }}
                 />
               )}
+
+              {content &&
+                content.map((item, i) => (
+                  <div>
+                    <h5>{item.title}</h5>
+                    {item.type === 'timeline' && (
+                      <TimeLine data={item.data}></TimeLine>
+                    )}
+                  </div>
+                ))}
             </div>
           </div>
         </div>
