@@ -26,7 +26,13 @@ const UserDetail = ({ user, type }) => {
               )}
               <br />
               <h5> Personal and Contact Infomation</h5>
-              <p>{data.description || ''}</p>
+              {data.description && (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: data.description.replace(/\n/g, '<br />'),
+                  }}
+                />
+              )}
               <hr />
               <ul>
                 {data.dob && (

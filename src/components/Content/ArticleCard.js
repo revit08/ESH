@@ -25,7 +25,15 @@ const ArticleCard = ({ data, id, ts }) => {
                   </small>
                 </span>
               </div>
-              <p className="mb-4 text-black">{description}</p>
+              <div className="mb-4 text-black">
+                {description && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: description.replace(/\n/g, '<br />'),
+                    }}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </Nav.Link>

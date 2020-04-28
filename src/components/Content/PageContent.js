@@ -2,19 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const PageContent = ({ data }) => {
-  const { description, title } = data;
+  const { description } = data;
 
   return (
     <>
-      <div className="container">
-        <div className="row align-items-center">
-          <div className="col-lg-12 ">
+      <div className="container pt-3">
+        <div class="row justify-content-md-center">
+          <div class="col-sm-9 ">
             <div className="site-section-heading text-left mb-5 w-border">
-              <h2>{title}</h2>
               <br />
-    <div className={className}
-  dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />')}} />
-             
+              {description && (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: description.replace(/\n/g, '<br />'),
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
