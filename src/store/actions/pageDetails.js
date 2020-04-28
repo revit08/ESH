@@ -37,7 +37,6 @@ export const loadPage = (id, callback) => async (dispatch, getState) => {
     async (id, callback) => {
       const baseUrl = `${apiConfig.base}${apiConfig.page.url}`;
       const uid = apiConfig.page.pages[id];
-      console.log(uid);
       const response = await axios.get(`${baseUrl}/${uid}`);
       const page = response.data;
       dispatch(loadPageSuccess(page));

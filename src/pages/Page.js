@@ -29,7 +29,7 @@ const Page = ({
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
 
   console.log(pageDetails);
-  const data = pageDetails.page;
+  const data = pageDetails.page ? pageDetails.page.data : {};
   return (
     page && (
       <Fragment>

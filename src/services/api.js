@@ -17,9 +17,9 @@ export const apiConfig = {
   },
   page: {
     name: 'page',
-    url: 'pages-read',
+    url: 'page',
     method: 'GET',
-    pages: { about: 263885483222761984, college: 263957332848804363 },
+    pages: { about: '263885483222761984', college: '263957332848804363' },
   },
   articles: {
     name: 'articles',

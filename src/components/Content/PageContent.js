@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const PageContent = ({ data }) => {
-  const { desc, title } = data;
+  const { description, title } = data;
 
   return (
     <>
@@ -11,7 +11,8 @@ const PageContent = ({ data }) => {
           <div className="col-lg-12 ">
             <div className="site-section-heading text-left mb-5 w-border">
               <h2>{title}</h2>
-              {desc}
+              <br />
+              {description}
             </div>
           </div>
         </div>
