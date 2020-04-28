@@ -36,7 +36,7 @@ const Staffs = ({
   //console.log(Students);
   if (error) return <Redirect to={'/error'} />;
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
-  console.log('Staffs', staffs);
+  /// console.log('Staffs', staffs);
   return (
     <Fragment>
       <PageTitle title="StaffS" desc="StaffS" />

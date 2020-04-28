@@ -28,7 +28,7 @@ const Article = ({
   if (error) return <Redirect to={'/error'} />;
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
 
-  console.log(article);
+  // console.log(article);
   return (
     article && (
       <Fragment>

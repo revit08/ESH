@@ -21,7 +21,7 @@ import { showToast } from '../../store/actions/toast';
 
 import './styles.css';
 
-export const DisplayFormikState = props => (
+export const DisplayFormikState = (props) => (
   <div style={{ margin: '1rem 0' }}>
     <h3 style={{ fontFamily: 'monospace' }} />
     <pre
@@ -37,9 +37,7 @@ export const DisplayFormikState = props => (
 );
 
 const registerSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string()
     .min(2, 'Password must be 2 characters at minimum.')
     .max(10, 'Password must be 10 characters at maximum.')
@@ -50,7 +48,7 @@ const registerSchema = Yup.object().shape({
     .required('Required'),
   repeatPassword: Yup.string()
     .when('password', {
-      is: val => (val && val.length > 0 ? true : false),
+      is: (val) => (val && val.length > 0 ? true : false),
       then: Yup.string().oneOf(
         [Yup.ref('password')],
         'Both password must be the same',
@@ -60,9 +58,7 @@ const registerSchema = Yup.object().shape({
 });
 
 const loginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string()
     .min(2, 'Password must be 2 characters at minimum.')
     .max(10, 'Password must be 10 characters at maximum.')
@@ -87,7 +83,7 @@ const Login = ({
     }
   }
 
-  const responseGoogleSuccess = response => {
+  const responseGoogleSuccess = (response) => {
     setGoogleUser(response.profileObj);
     if (formik.current) {
       formik.current.resetForm();
@@ -95,7 +91,7 @@ const Login = ({
     redirectAfterLogin(() => history.push('/products'));
   };
 
-  const responseGoogleFail = response => {
+  const responseGoogleFail = (response) => {
     showToast({
       title: 'Error',
       text: `Error loging in with Google: ${response.error}.`,
@@ -121,7 +117,7 @@ const Login = ({
             <p>
               <GoogleLogin
                 clientId={config.clientId}
-                render={renderProps => (
+                render={(renderProps) => (
                   <Button
                     id="googleButton"
                     variant="outline-primary"
@@ -167,8 +163,8 @@ const Login = ({
                   redirectAfterLogin(() => history.push('/products'));
                 }, 1000);
               }}
-              onChange={e => console.log(e)}
-              render={props => {
+              onChange={(e) => console.log(e)}
+              render={(props) => {
                 const {
                   handleSubmit,
                   handleChange,
@@ -289,10 +285,7 @@ const Login = ({
                         </div>
                       </BForm.Row>
                       <BForm.Row>
-                        <div className="col-12 text-center small">
-                          <p>Test email: default@gmail.com</p>
-                          <p>Test password: password</p>
-                        </div>
+                        <div className="col-12 text-center small"></div>
                       </BForm.Row>
                     </BForm>
                     {/* <DisplayFormikState {...props} /> */}
@@ -307,16 +300,13 @@ const Login = ({
   );
 };
 
-export default connect(
-  state => ({}),
-  {
-    setGoogleUser,
-    showToast,
-    registerLocalUser,
-    loginLocalUser,
-    redirectAfterLogin,
-  },
-)(withRouter(Login));
+export default connect((state) => ({}), {
+  setGoogleUser,
+  showToast,
+  registerLocalUser,
+  loginLocalUser,
+  redirectAfterLogin,
+})(withRouter(Login));
 /*
 profileObj:
 email: "api@gmail.com"

@@ -31,10 +31,10 @@ const NewsEvents = ({
     return todo.ref['@ref'].id;
   }
 
-  console.log(articles);
+  // console.log(articles);
   if (error) return <Redirect to={'/error'} />;
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
-  console.log('articles', articles);
+  // console.log('articles', articles);
   return (
     <Fragment>
       <PageTitle title="News & Events" desc="articles" />

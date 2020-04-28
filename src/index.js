@@ -29,6 +29,7 @@ import ProductDetails from './pages/ProductDetails';
 import Error from './pages/Error';
 import MyToast from './components/MyToast';
 import PrivateRoute from './components/PrivateRoute';
+import ScrollToTop from './components/Common/ScrollToTop';
 import rootReducer from './store/reducers';
 
 import './index.css';
@@ -51,6 +52,7 @@ const Root = () => {
   return (
     <Router>
       <Provider store={store}>
+        <ScrollToTop />
         <Header nav={menuAll} />
         <div className="pageContainer">
           <Switch>

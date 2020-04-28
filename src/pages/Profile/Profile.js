@@ -62,36 +62,6 @@ const Profile = ({ auth }) => {
                         <div className="col-md-8 col-6">Lorem Ipsum</div>
                       </div>
                       <hr />
-
-                      <div className="row">
-                        <div className="col-sm-3 col-md-2 col-5">
-                          <label className="item-label">Birth Date</label>
-                        </div>
-                        <div className="col-md-8 col-6">March 22, 1983.</div>
-                      </div>
-                      <hr />
-
-                      <div className="row">
-                        <div className="col-sm-3 col-md-2 col-5">
-                          <label className="item-label">Lorem Ipsum</label>
-                        </div>
-                        <div className="col-md-8 col-6">Lorem Ipsum</div>
-                      </div>
-                      <hr />
-                      <div className="row">
-                        <div className="col-sm-3 col-md-2 col-5">
-                          <label className="item-label">Lorem Ipsum</label>
-                        </div>
-                        <div className="col-md-8 col-6">Lorem Ipsum</div>
-                      </div>
-                      <hr />
-                      <div className="row">
-                        <div className="col-sm-3 col-md-2 col-5">
-                          <label className="item-label">Lorem Ipsum</label>
-                        </div>
-                        <div className="col-md-8 col-6">Lorem Ipsum</div>
-                      </div>
-                      <hr />
                     </div>
                   </Tab>
                   <Tab eventKey="additional" title="Additional info">
