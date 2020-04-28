@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, openUserView }) => {
   const { id, data } = user;
 
   const userIcon =
@@ -16,16 +16,11 @@ const UserCard = ({ user }) => {
   return (
     <>
       <div className="col-12 col-sm-6 col-lg-4  mb-5 mb-lg-5">
-        <div className="team-member">
+        <div className="team-member" onClick={openUserView}>
           <div className="text-center"> {userImage}</div>
           <div className="text">
-            <h2
-              onClick={() => {
-                this.props.openUserView(id);
-              }}
-              className="mb-2 font-weight-light h4 text-uppercase "
-            >
-              {data.name}
+            <h2 className="mb-2 font-weight-light h4 text-uppercase ">
+              {data.roll}: {data.name}
             </h2>
             <span className="">{data.location}</span>
             <p className="mb-4"></p>

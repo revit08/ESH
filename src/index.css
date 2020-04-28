@@ -2452,6 +2452,7 @@ a:hover {
 
 .team-member {
   position: relative;
+  cursor: pointer;
   float: left;
   width: 100%;
   overflow: hidden;
@@ -2460,7 +2461,7 @@ a:hover {
   border-image-slice: 1;
   border-width: 2px;
   padding: 10px;
-  border-image-source: linear-gradient(to left, #27f09d, #01a0fa);
+  border: 1px solid rgb(11, 206, 175);
 }
 
 .team-member img {
@@ -2536,6 +2537,19 @@ a:hover {
 
 .social-icon span {
   font-size: 20px;
+}
+.social-icon li a {
+  background-color: #0bceaf;
+  color: #fff;
+  margin-right: 10px;
+  padding: 15px;
+  border-radius: 30px;
+  width: 35px;
+  height: 35px;
+  line-height: 10px;
+  padding: 9px;
+  font-size: 19px;
+  text-align: center;
 }
 
 .social-icon:hover {

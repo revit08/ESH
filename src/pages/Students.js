@@ -4,10 +4,13 @@ import { Redirect } from 'react-router-dom';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
 
 import Container from 'react-bootstrap/Container';
 import PageTitle from '../components/PageTitle/PageTitle';
 import UserCard from '../components/UserCard/UserCard';
+import UserDetail from '../components/UserCard/UserDetail';
+
 import MySpinner from '../components/MySpinner';
 
 import { loadStudents } from '../store/actions/students';
@@ -20,25 +23,59 @@ const Students = ({
   setPageToLoad,
 }) => {
   // did mount
+  const [UserModelView, UserModelToggle] = useState(false);
+  const [userViewData, setUserViewData] = useState(null);
   useEffect(() => {
     loadStudents();
   }, []);
-
+  const openUserView = (user) => {
+    console.log('g', user);
+    setUserViewData(user);
+    UserModelToggle(true);
+  };
   //console.log(Students);
   if (error) return <Redirect to={'/error'} />;
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
   console.log('Students', students);
+
   return (
     <Fragment>
       <PageTitle title="STUDENTS" desc="STUDENTS" />
-      <Container className="margin-top">
-        <Row className="mb-3">
+
+      <Container className="pt-4">
+        <Row className="mb-1">
           {students &&
-            students.map((user, i) => <UserCard user={user} key={i} />)}
+            students.map((user, i) => (
+              <UserCard
+                user={user}
+                key={i}
+                openUserView={() => openUserView(user)}
+              />
+            ))}
         </Row>
       </Container>
+
+      <Modal
+        size="lg"
+        show={UserModelView}
+        onHide={() => UserModelToggle(false)}
+        aria-labelledby="example-modal-sizes-title-lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-lg">
+            <h4 className="text-uppercase">
+              {userViewData &&
+                userViewData.data &&
+                `${userViewData.data.roll}:  ${userViewData.data.name}`}
+            </h4>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <UserDetail user={userViewData} type="student" />
+        </Modal.Body>
+      </Modal>
       {!error && !hasMoreItems && (
-        <Row className="mb-3">
+        <Row className="mb-2">
           <Col>
             <h4 className="text-center">No Students</h4>
           </Col>

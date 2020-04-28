@@ -52,14 +52,15 @@ const Footer = ({ nav }) => {
                 <div>
                   <Nav className="flex-column">
                     {socialLinks.map((menu, i) => (
-                      <LinkContainer
-                        key={`footermenuSocial${i}`}
-                        to={menu.link}
-                        className={`${menu.class}`}
+                      <a
                         target="_blank"
+                        rel="noopener noreferrer"
+                        key={`footermenuSocial${i}`}
+                        href={menu.link}
+                        className={`${menu.class}`}
                       >
-                        <Nav.Link>{menu.title}</Nav.Link>
-                      </LinkContainer>
+                        {menu.title}
+                      </a>
                     ))}
                   </Nav>
                 </div>
