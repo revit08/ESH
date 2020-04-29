@@ -72,7 +72,7 @@ const Staffs = ({
           <UserDetail user={userViewData} type="staff" />
         </Modal.Body>
       </Modal>
-      {!error && !hasMoreItems && (
+      {error && (
         <Row className="mb-2">
           <Col>
             <h4 className="text-center">No Staffs</h4>

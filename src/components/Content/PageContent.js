@@ -8,8 +8,8 @@ const PageContent = ({ data }) => {
   return (
     <>
       <div className="container pt-3">
-        <div class="row justify-content-md-center">
-          <div class="col-sm-9 ">
+        <div className="row justify-content-md-center">
+          <div className="col-sm-9 ">
             <div className="site-section-heading text-left mb-5 w-border">
               <br />
               {description && (

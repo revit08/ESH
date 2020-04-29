@@ -10,7 +10,11 @@ const UserCard = ({ user, openUserView }) => {
     <img
       alt="cmsImage"
       className="img-center img-fluid"
-      src={user && user.flagimg ? user.flagimg.base64 : userIcon}
+      src={
+        user && user.data && user.data.flagimg
+          ? user.data.flagimg.base64
+          : userIcon
+      }
     />
   );
   return (

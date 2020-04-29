@@ -5,7 +5,7 @@ import moment from 'moment';
 const TimeLine = ({ data }) => {
   return (
     <>
-      <div className="">
+      <div>
         <ul className="timeline">
           {data &&
             data.map((item, i) => (

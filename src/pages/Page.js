@@ -22,8 +22,9 @@ const Page = ({
   const { page, isLoading, error } = pageDetails;
 
   useEffect(() => {
+    console.log('component updated', match.params.id);
     loadPage(match.params.id);
-  }, []);
+  }, [match.params.id]);
 
   if (error) return <Redirect to={'/error'} />;
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
