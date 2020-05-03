@@ -65,11 +65,10 @@ const Root = () => {
         <Provider store={store}>
           <ScrollToTop />
 
-          <Header nav={menuAll} />
           <AuthStatusView />
           <div className="pageContainer">
             <Switch>
-              <Route path="/home" exact component={Home} />
+              <Route path="/" exact component={Home} />
               <Route path="/students" exact component={Students} />
               <Route path="/staffs" exact component={Staffs} />
 
@@ -111,46 +110,21 @@ function AuthStatusView() {
     identity.user.user_metadata.avatar_url;
   return (
     <div className="App">
-      <header className="App-header">
-        {identity && identity.isLoggedIn ? (
-          <>
-            <h1> hello {name}!</h1>
-            {avatar_url && (
-              <img
-                alt="user name"
-                src={avatar_url}
-                style={{ height: 100, borderRadius: '50%' }}
-              />
-            )}
-            <button
-              className="btn"
-              style={{ maxWidth: 400, background: 'orangered' }}
-              onClick={() => setDialog(true)}
-            >
-              LOG OUT
-            </button>
-          </>
-        ) : (
-          <>
-            <h1> hello! try logging in! </h1>
-            <button
-              className="btn"
-              style={{ maxWidth: 400, background: 'darkgreen' }}
-              onClick={() => setDialog(true)}
-            >
-              LOG IN
-            </button>
-          </>
-        )}
+      <Header
+        nav={menuAll}
+        identity={identity}
+        avatar_url={avatar_url}
+        name={name}
+        setDialog={setDialog}
+      />
 
-        <IdentityModal
-          showDialog={dialog}
-          onCloseDialog={() => setDialog(false)}
-          onLogin={(user) => console.log('hello ', user)}
-          onSignup={(user) => console.log('welcome ', user)}
-          onLogout={() => console.log('bye ', name)}
-        />
-      </header>
+      <IdentityModal
+        showDialog={dialog}
+        onCloseDialog={() => setDialog(false)}
+        onLogin={(user) => console.log('hello ', user)}
+        onSignup={(user) => console.log('welcome ', user)}
+        onLogout={() => console.log('bye ', name)}
+      />
     </div>
   );
 }

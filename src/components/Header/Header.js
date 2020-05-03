@@ -24,16 +24,14 @@ import './styles.css';
 const Header = ({
   nav,
   location,
-  header,
-
+  identity,
+  name,
+  avatar_url,
   setPageToLoad,
   liked,
   cart,
   auth,
-  getGoogleUser,
-  logOutGoogleUser,
-  getLocalUser,
-  logoutLocalUser,
+  setDialog,
 }) => {
   const { pathname } = location;
 
@@ -41,14 +39,6 @@ const Header = ({
     getGoogleUser();
     getLocalUser();
   }, []);
-
-  function logoutSuccess() {
-    logOutGoogleUser();
-  }
-
-  function logoutLocalUserClick() {
-    logoutLocalUser();
-  }
 
   function getCurrentUser() {
     let user = null;
@@ -94,93 +84,32 @@ const Header = ({
              */}
           </Nav>
           <Nav activeKey={pathname}>
-            {!getCurrentUser() ? (
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <i className="fa fa-sign-in"></i> Log in
-                </Nav.Link>
-              </LinkContainer>
-            ) : (
-              <NavDropdown
-                title={
-                  <>
-                    <i className="fa fa-user"></i> <span>Logged in</span>
-                  </>
-                }
-                id="basic-nav-dropdown"
-              >
-                <NavDropdown.Item>
-                  <div
-                    className="row"
-                    style={{ minWidth: '15rem', maxHeight: '4rem' }}
-                  >
-                    <div className="col-lg-3 col-2 img-container">
-                      <img
-                        alt="te"
-                        src={
-                          getCurrentUser() === 'google'
-                            ? auth.googleUser.imageUrl
-                            : require(`../../static/user.png`)
-                        }
-                        className="user-img"
-                      />
-                    </div>
-                    <div className="col-lg-9 col-10 text-left">
-                      <p className="">
-                        <strong>
-                          {getCurrentUser() === 'google'
-                            ? auth.googleUser.name
-                            : auth.localUser.name}
-                        </strong>
-                      </p>
-                      <p className="small">
-                        {getCurrentUser() === 'google'
-                          ? auth.googleUser.email
-                          : auth.localUser.email}
-                      </p>
-                    </div>
-                  </div>
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                {getCurrentUser() === 'google' ? (
-                  <GoogleLogout
-                    clientId={config.clientId}
-                    buttonText="Logout"
-                    onLogoutSuccess={logoutSuccess}
-                    render={(renderProps) => (
-                      <>
-                        <LinkContainer to="/profile">
-                          <NavDropdown.Item className="text-center">
-                            Profile
-                          </NavDropdown.Item>
-                        </LinkContainer>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item
-                          className="text-center"
-                          onClick={renderProps.onClick}
-                        >
-                          Google log out
-                        </NavDropdown.Item>
-                      </>
-                    )}
+            {identity && identity.isLoggedIn ? (
+              <>
+                hello {name}
+                {avatar_url && (
+                  <img
+                    alt="user name"
+                    src={avatar_url}
+                    style={{ height: 100, borderRadius: '50%' }}
                   />
-                ) : (
-                  <>
-                    <LinkContainer to="/profile">
-                      <NavDropdown.Item className="text-center">
-                        Profile
-                      </NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item
-                      className="text-center"
-                      onClick={logoutLocalUserClick}
-                    >
-                      Local log out
-                    </NavDropdown.Item>
-                  </>
                 )}
-              </NavDropdown>
+                <button
+                  className="btn btn-link"
+                  onClick={() => setDialog(true)}
+                >
+                  LOG OUT
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className="btn btn-link"
+                  onClick={() => setDialog(true)}
+                >
+                  LOG IN
+                </button>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>
