@@ -1,14 +1,10 @@
-import React, { useEffect, useState, useRef, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import Product from '../../components/Product';
-import MySpinner from '../../components/MySpinner';
 import './styles.css';
-
-import { config } from '../../services/config';
 
 const Liked = ({ liked: { likedProducts } }) => {
   // console.log(likedProducts);
@@ -17,7 +13,7 @@ const Liked = ({ liked: { likedProducts } }) => {
     <Fragment>
       <Row>
         {likedProducts.map((product, i) => (
-          <Product product={product} key={i} />
+          <Col />
         ))}
       </Row>
 
@@ -31,7 +27,7 @@ const Liked = ({ liked: { likedProducts } }) => {
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     liked: state.likedReducer,
   }),
   {},

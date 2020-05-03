@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
@@ -7,15 +7,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import Badge from 'react-bootstrap/Badge';
 
 import { GoogleLogout } from 'react-google-login';
 
-import {
-  setSortBy,
-  setFilterBy,
-  setPageToLoad,
-} from '../../store/actions/header';
+import { setPageToLoad } from '../../store/actions/header';
 import {
   getGoogleUser,
   logOutGoogleUser,

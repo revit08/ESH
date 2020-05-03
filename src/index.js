@@ -11,6 +11,13 @@ import { menuAll } from './constants/Menu';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import {
+  IdentityModal,
+  useIdentityContext,
+  IdentityContextProvider,
+} from 'react-netlify-identity-widget';
+import 'react-netlify-identity-widget/styles.css';
+import '@reach/tabs/styles.css';
 
 import Header from './components/Header';
 
@@ -25,7 +32,6 @@ import Article from './pages/Article';
 import Liked from './pages/Liked';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
-import ProductDetails from './pages/ProductDetails';
 import Error from './pages/Error';
 import MyToast from './components/MyToast';
 import PrivateRoute from './components/PrivateRoute';
@@ -38,7 +44,11 @@ import './app.css';
 const Root = () => {
   //
   const initialState = {};
-
+  const url = 'https://revit08.netlify.app/' || 'http://localhost:3002/'; // should look something like "https://foo.netlify.com"
+  if (!url)
+    throw new Error(
+      'process.env.REACT_APP_NETLIFY_IDENTITY_URL is blank2, which means you probably forgot to set it in your Netlify environment variables',
+    );
   const store = createStore(
     rootReducer,
     initialState,
@@ -50,41 +60,100 @@ const Root = () => {
     ),
   );
   return (
-    <Router>
-      <Provider store={store}>
-        <ScrollToTop />
-        <Header nav={menuAll} />
-        <div className="pageContainer">
-          <Switch>
-            <Route path="/home" exact component={Home} />
-            <Route path="/students" exact component={Students} />
-            <Route path="/staffs" exact component={Staffs} />
+    <IdentityContextProvider url={url}>
+      <Router>
+        <Provider store={store}>
+          <ScrollToTop />
 
-            <Route path="/page/:id" exact component={Page} />
-            <Route path="/news-events" exact component={NewsEvents} />
-            <Route path="/article/:id" exact component={Article} />
-            <Route path="/liked" exact component={Liked} />
-            <Route
-              path="/product-details/:id"
-              exact
-              component={ProductDetails}
-            />
-            <Route path="/login" component={Login} />
-            <PrivateRoute path="/profile" component={Profile} />
-            <Route path="/error" component={Error} />
-            <Route exact path="/">
-              <Redirect to="/home" />
-            </Route>
-            <Redirect to="/error" />
-          </Switch>
-        </div>
-        <Footer nav={menuAll} />
-        <MyToast />
-      </Provider>
-    </Router>
+          <Header nav={menuAll} />
+          <AuthStatusView />
+          <div className="pageContainer">
+            <Switch>
+              <Route path="/home" exact component={Home} />
+              <Route path="/students" exact component={Students} />
+              <Route path="/staffs" exact component={Staffs} />
+
+              <Route path="/page/:id" exact component={Page} />
+              <Route path="/news-events" exact component={NewsEvents} />
+              <Route path="/article/:id" exact component={Article} />
+              <Route path="/liked" exact component={Liked} />
+
+              <Route path="/login" component={Login} />
+              <PrivateRoute path="/profile" component={Profile} />
+              <Route path="/error" component={Error} />
+              <Route exact path="/">
+                <Redirect to="/home" />
+              </Route>
+              <Redirect to="/error" />
+            </Switch>
+          </div>
+          <Footer nav={menuAll} />
+          <MyToast />
+        </Provider>
+      </Router>
+    </IdentityContextProvider>
   );
 };
 
+function AuthStatusView() {
+  const identity = useIdentityContext();
+  const [dialog, setDialog] = React.useState(false);
+  const name =
+    (identity &&
+      identity.user &&
+      identity.user.user_metadata &&
+      identity.user.user_metadata.full_name) ||
+    'NoName';
+  const avatar_url =
+    identity &&
+    identity.user &&
+    identity.user.user_metadata &&
+    identity.user.user_metadata.avatar_url;
+  return (
+    <div className="App">
+      <header className="App-header">
+        {identity && identity.isLoggedIn ? (
+          <>
+            <h1> hello {name}!</h1>
+            {avatar_url && (
+              <img
+                alt="user name"
+                src={avatar_url}
+                style={{ height: 100, borderRadius: '50%' }}
+              />
+            )}
+            <button
+              className="btn"
+              style={{ maxWidth: 400, background: 'orangered' }}
+              onClick={() => setDialog(true)}
+            >
+              LOG OUT
+            </button>
+          </>
+        ) : (
+          <>
+            <h1> hello! try logging in! </h1>
+            <button
+              className="btn"
+              style={{ maxWidth: 400, background: 'darkgreen' }}
+              onClick={() => setDialog(true)}
+            >
+              LOG IN
+            </button>
+          </>
+        )}
+
+        <IdentityModal
+          showDialog={dialog}
+          onCloseDialog={() => setDialog(false)}
+          onLogin={(user) => console.log('hello ', user)}
+          onSignup={(user) => console.log('welcome ', user)}
+          onLogout={() => console.log('bye ', name)}
+        />
+      </header>
+    </div>
+  );
+}
 ReactDOM.render(<Root />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -25,7 +25,6 @@ const Students = ({
   // did mount
   const [UserModelView, UserModelToggle] = useState(false);
   const [userViewData, setUserViewData] = useState(null);
-  const [searchText, setSearchText] = useState('');
   useEffect(() => {
     loadStudents();
   }, []);

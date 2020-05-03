@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
-import _ from 'lodash';
 
 import MySpinner from '../components/MySpinner';
 import PageTitle from '../components/PageTitle/PageTitle';

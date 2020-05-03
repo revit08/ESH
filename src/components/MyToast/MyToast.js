@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import Toast from 'react-bootstrap/Toast';
@@ -38,7 +38,7 @@ const MyToast = ({ toast: { show, title, text }, showToast, hideToast }) => {
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     toast: state.toastReducer,
   }),
   { showToast, hideToast },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
@@ -7,8 +7,6 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
-import Container from 'react-bootstrap/Container';
 
 import ArticleCard from '../../components/Content/ArticleCard';
 import MySpinner from '../../components/MySpinner';
