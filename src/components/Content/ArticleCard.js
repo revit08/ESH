@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
-import { getImgPlaceHolder } from './../../utils';
+import { getImgPlaceHolder, get50Char } from './../../utils';
 
 const ArticleCard = ({ data, id, ts }) => {
   const { basic, created, modified, pic } = data;
@@ -37,15 +37,7 @@ const ArticleCard = ({ data, id, ts }) => {
                   </small>
                 </span>
               </div>
-              <div className="mb-4 text-black">
-                {desc && (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: desc.replace(/\n/g, '<br />'),
-                    }}
-                  />
-                )}
-              </div>
+              <div className="mb-4 text-black">{desc && get50Char(desc)}</div>
             </div>
           </div>
         </Nav.Link>

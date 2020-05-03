@@ -17,3 +17,11 @@ export const getImgPlaceHolder = (name) => {
   }
   return userIcon;
 };
+
+export const get50Char = (str) => {
+  const strp = str.replace(/<[^>]*>/g, '');
+  if (strp.length > 100) {
+    return `${strp.substring(0, 100)}...`;
+  }
+  return strp;
+};
