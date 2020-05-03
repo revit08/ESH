@@ -25,6 +25,7 @@ const Students = ({
   // did mount
   const [UserModelView, UserModelToggle] = useState(false);
   const [userViewData, setUserViewData] = useState(null);
+  const [searchText, setSearchText] = useState('');
   useEffect(() => {
     loadStudents();
   }, []);
@@ -36,7 +37,7 @@ const Students = ({
   //console.log(Students);
   if (error) return <Redirect to={'/error'} />;
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
-  // console.log('Students', students);
+  console.log('Students', students);
 
   return (
     <Fragment>
@@ -47,7 +48,7 @@ const Students = ({
           {students &&
             students.map((user, i) => (
               <UserCard
-                user={user}
+                user={user.data}
                 key={i}
                 openUserView={() => openUserView(user)}
               />
@@ -61,15 +62,7 @@ const Students = ({
         onHide={() => UserModelToggle(false)}
         aria-labelledby="example-modal-sizes-title-lg"
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-lg">
-            <h4 className="text-uppercase">
-              {userViewData &&
-                userViewData.data &&
-                `${userViewData.data.roll}:  ${userViewData.data.name}`}
-            </h4>
-          </Modal.Title>
-        </Modal.Header>
+        <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <UserDetail user={userViewData} type="student" />
         </Modal.Body>

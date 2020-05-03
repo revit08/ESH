@@ -20,7 +20,10 @@ const Page = ({
   hideToast,
 }) => {
   const { page, isLoading, error } = pageDetails;
-
+  let title = '';
+  if (page && page.data && page.data.basic && page.data.basic.length > 0) {
+    title = page.data.basic.find((x) => x.field === 'title').val || '';
+  }
   useEffect(() => {
     console.log('component updated', match.params.id);
     loadPage(match.params.id);
@@ -33,7 +36,7 @@ const Page = ({
   return (
     page && (
       <Fragment>
-        <PageTitle title={data.title} desc="" />
+        <PageTitle title={title} desc="" />
         <PageContent data={data} />
       </Fragment>
     )

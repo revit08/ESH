@@ -20,7 +20,15 @@ const Article = ({
   hideToast,
 }) => {
   const { article, isLoading, error } = articleDetails;
-
+  let title = '';
+  if (
+    article &&
+    article.data &&
+    article.data.basic &&
+    article.data.basic.length > 0
+  ) {
+    title = article.data.basic.find((x) => x.field === 'title').val || '';
+  }
   useEffect(() => {
     loadArticle(match.params.id);
   }, []);
@@ -32,7 +40,7 @@ const Article = ({
   return (
     article && (
       <Fragment>
-        <PageTitle title={article.data.title} desc="" />
+        <PageTitle title={title} desc="" />
         <PageContent data={article.data} />
       </Fragment>
     )

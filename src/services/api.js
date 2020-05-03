@@ -2,7 +2,7 @@ export const apiConfig = {
   base: 'https://revit8apps.netlify.app/.netlify/functions/',
   students: {
     name: 'students',
-    url: 'students-read-all',
+    url: 'students-all',
     method: 'GET',
   },
   staffs: {
@@ -17,9 +17,12 @@ export const apiConfig = {
   },
   page: {
     name: 'page',
-    url: 'page',
+    url: 'page-read',
     method: 'GET',
-    pages: { about: '263885483222761984', college: '263957332848804363' },
+    pages: {
+      about: '264402239931548160',
+      college: '264515910901957138',
+    },
   },
   articles: {
     name: 'articles',

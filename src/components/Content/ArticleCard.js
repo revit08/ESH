@@ -3,10 +3,22 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
+import { getImgPlaceHolder } from './../../utils';
 
 const ArticleCard = ({ data, id, ts }) => {
-  const { description, title, date, author } = data;
-
+  const { basic, created, modified, pic } = data;
+  let title = '';
+  let desc = '';
+  let pici = '';
+  if (basic && basic.length > 0) {
+    title = basic.find((x) => x.field === 'title').val || '';
+    desc = basic.find((x) => x.field === 'desC').val || '';
+    pici = getImgPlaceHolder(title);
+  }
+  if (pic && pic.length > 0) {
+    pici = pic[0].base64;
+  }
+  console.log(data);
   return (
     <>
       <LinkContainer to={`article/${id}`}>
@@ -20,16 +32,16 @@ const ArticleCard = ({ data, id, ts }) => {
               <div className=" mb-3 text-black">
                 <span className="text-black-opacity-05">
                   <small>
-                    By {author} <span className="sep">/</span>{' '}
-                    {moment(ts / 1000).format('MM ddd, YYYY')}
+                    By {} <span className="sep">/</span>{' '}
+                    {moment(created / 10000).format('MM ddd, YYYY')}
                   </small>
                 </span>
               </div>
               <div className="mb-4 text-black">
-                {description && (
+                {desc && (
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: description.replace(/\n/g, '<br />'),
+                      __html: desc.replace(/\n/g, '<br />'),
                     }}
                   />
                 )}

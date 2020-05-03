@@ -9,7 +9,11 @@ const MySpinner = ({ text, ...rest }) => {
       {...rest}
       className="spinner-container d-flex align-items-center justify-content-center"
     >
-      {text ? <h1>{`${text}...`}</h1> : <Spinner animation="border" />}
+      <div class="book">
+        <div class="book__page"></div>
+        <div class="book__page"></div>
+        <div class="book__page"></div>
+      </div>
     </div>
   );
 };
