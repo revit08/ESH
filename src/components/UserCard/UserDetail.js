@@ -1,21 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { getImgPlaceHolder } from './../../utils';
-const UserDetail = ({ user, type }) => {
-  const { id, data } = user;
+const UserDetail = ({ user, type, userLogged, onInputChange, cancelEdit }) => {
+  const [editProfileView, editProfileToggle] = useState(false);
+
+  const { data } = user;
+
+  //const backData = JSON.parse(JSON.stringify(data));
+  let claimedBy = '';
   let pic = '';
   let name = '';
-  console.log('UserDetail', data);
-  if (data && data.basic) {
-    name = data.basic.find((x) => x.field === 'fName').val || '';
-    pic = getImgPlaceHolder(name);
+  if (data) {
+    claimedBy = data.claimedBy;
+    if (data.basic) {
+      name = data.basic.find((x) => x.field === 'fName').val || '';
+      pic = getImgPlaceHolder(name);
+    }
+
+    if (data.pic && data.pic.length > 0) {
+      pic = data.pic[0].base64;
+    }
   }
-  if (data && data.pic && data.pic.length > 0) {
-    pic = data.pic[0].base64;
-  }
+
+  console.log(`${userLogged} ${claimedBy}`);
+
+  const cancelEditL = () => {
+    //data = backdata;
+    cancelEdit();
+    editProfileToggle(false);
+  };
+
   return (
     <>
       <div className="container-fluid">
+        <div className="row ">
+          <div className="col-12 text-center pt-2 pb-2"></div>
+        </div>
         <div className="row ">
           <div className="col-md-6 text-center">
             <div className="hero-img wow fadeInUp">
@@ -33,12 +53,34 @@ const UserDetail = ({ user, type }) => {
               <ul>
                 {data &&
                   data.basic &&
-                  data.basic.map((i) => (
-                    <li>
-                      <i className={`fa  ${i.ico}`}></i>
-                      <span>
-                        {i.name}: {i.val}
-                      </span>
+                  data.basic.map((i, j) => (
+                    <li key={`basicUser${j}`}>
+                      {editProfileView ? (
+                        <div className="input-group input-group-sm mb-3">
+                          <div className="input-group-prepend">
+                            <span
+                              className="input-group-text"
+                              id="basic-addon1"
+                            >
+                              <i className={`fa  ${i.ico}`}></i>
+                              {i.name}
+                            </span>
+                          </div>
+                          <input
+                            type={i.type}
+                            class="form-control"
+                            value={i.val || ''}
+                            name={i.field || ''}
+                            onChange={(e) =>
+                              onInputChange('basic', i.field, e.target.value)
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <span>
+                          <i className={`fa  ${i.ico}`}></i> {i.name}: {i.val}
+                        </span>
+                      )}
                     </li>
                   ))}
               </ul>
@@ -47,12 +89,34 @@ const UserDetail = ({ user, type }) => {
               <ul>
                 {data &&
                   data.contact &&
-                  data.contact.map((i) => (
-                    <li>
-                      <i className={`fa  ${i.ico}`}></i>
-                      <span>
-                        {i.name}: {i.val}
-                      </span>
+                  data.contact.map((i, j) => (
+                    <li key={`contactUser${j}`}>
+                      {editProfileView ? (
+                        <div className="input-group input-group-sm mb-3">
+                          <div className="input-group-prepend">
+                            <span
+                              className="input-group-text"
+                              id="basic-addon1"
+                            >
+                              <i className={`fa  ${i.ico}`}></i>
+                              {i.name}
+                            </span>
+                          </div>
+                          <input
+                            type={i.type}
+                            class="form-control"
+                            value={i.val || ''}
+                            name={i.field || ''}
+                            onChange={(e) =>
+                              onInputChange('contact', i.field, e.target.value)
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <span>
+                          <i className={`fa  ${i.ico}`}></i> {i.name}: {i.val}
+                        </span>
+                      )}
                     </li>
                   ))}
               </ul>
@@ -63,7 +127,7 @@ const UserDetail = ({ user, type }) => {
                   <h5> Subjects handled on semester</h5>
                   <ul>
                     {data.subjects.map((i, j) => (
-                      <li>
+                      <li key={`subjectsUser${j}`}>
                         {i.val && (
                           <span>
                             <span class="badge badge-primary badge-pill">
@@ -83,8 +147,8 @@ const UserDetail = ({ user, type }) => {
                 <div>
                   <h5> Social Links</h5>
                   <ul className="social-icon wow fadeInUp">
-                    {data.social.map((i) => (
-                      <li>
+                    {data.social.map((i, x) => (
+                      <li key={`socialUser${x}`}>
                         <a
                           className="nav-link "
                           target="_blank"

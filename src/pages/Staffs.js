@@ -57,7 +57,6 @@ const Staffs = ({
         size="lg"
         show={UserModelView}
         onHide={() => UserModelToggle(false)}
-        aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>

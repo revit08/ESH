@@ -3,6 +3,8 @@ import staffsReducer from './staffsReducer';
 import pageDetailsReducer from './pageDetailsReducer';
 import articlesReducer from './articlesReducer';
 import articleDetailsReducer from './articleDetailsReducer';
+import sessionReducer from './sessionReducer';
+import semestersReducer from './semestersReducer';
 import headerReducer from './headerReducer';
 import likedReducer from './likedReducer';
 import cartReducer from './cartReducer';
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   pageDetailsReducer,
   articlesReducer,
   articleDetailsReducer,
+  sessionReducer,
+  semestersReducer,
   headerReducer,
   likedReducer,
   cartReducer,

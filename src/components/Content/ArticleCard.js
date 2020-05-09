@@ -18,7 +18,6 @@ const ArticleCard = ({ data, id, ts }) => {
   if (pic && pic.length > 0) {
     pici = pic[0].base64;
   }
-  console.log(data);
   return (
     <>
       <LinkContainer to={`article/${id}`}>

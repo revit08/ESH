@@ -15,6 +15,11 @@ export const apiConfig = {
     url: 'pages-read-all',
     method: 'GET',
   },
+  semesters: {
+    name: 'pages',
+    url: 'subject-read-all',
+    method: 'GET',
+  },
   page: {
     name: 'page',
     url: 'page-read',

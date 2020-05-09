@@ -48,9 +48,7 @@ const Article = ({
 
 export default connect(
   (state) => ({
-    articleDetails: state.articleDetailsReducer,
-    cart: state.cartReducer,
-    liked: state.likedReducer,
+    articleDetails: state.articleDetailsReducer
   }),
   {
     loadArticle,

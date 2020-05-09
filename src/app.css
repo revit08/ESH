@@ -295,3 +295,61 @@ ul.timeline > li:before {
   height: 20px;
   z-index: 400;
 }
+
+[data-reach-dialog-overlay] {
+  z-index: 1030;
+}
+[data-reach-tab] {
+  color: #555;
+}
+.RNIW_formGroup label {
+  display: block;
+}
+img.userIcon {
+  width: auto;
+  height: 36px !important;
+  border-radius: 20px;
+  border: 1px solid #ffffff69;
+}
+.RNIW_infoText {
+  text-align: center;
+  margin: 32px 0;
+  color: #000;
+}
+
+.semester-session {
+  min-height: 100vh;
+  width: 100%;
+  padding: 100px 0;
+  position: relative;
+}
+.h2 {
+  font-size: 2rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  position: relative;
+  line-height: 175%;
+}
+.h2:after {
+  position: absolute;
+  content: '';
+  width: 70px;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  background: #e3207b;
+}
+.text-on-back {
+  position: relative;
+  z-index: 1;
+  font-size: 5.5em;
+  margin-left: -4px;
+  font-weight: 900;
+  color: hsla(0, 0%, 100%, 0.2) !important;
+}
+.profile-title {
+  position: absolute;
+  top: 110px;
+  left: 60px;
+}

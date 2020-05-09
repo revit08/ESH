@@ -25,3 +25,16 @@ export const get50Char = (str) => {
   }
   return strp;
 };
+
+export const domTagByField = (i) => {
+  switch (i.field) {
+    case 'sName':
+      return `<h2 class="h2">${i.val}</h2>`;
+    case 'sDesc':
+      return `<p>${i.val}</p>`;
+    case 'sCord':
+      return `<p>${i.val}</p>`;
+    default:
+      return `<p>${i.val}</p>`;
+  }
+};

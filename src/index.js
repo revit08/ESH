@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import {
@@ -19,17 +19,19 @@ import {
 import 'react-netlify-identity-widget/styles.css';
 import '@reach/tabs/styles.css';
 
+import MySpinner from './components/MySpinner';
 import Header from './components/Header';
-
 import Footer from './components/Footer/Footer';
+
 import Home from './pages/Home';
 import Students from './pages/Students';
 import Staffs from './pages/Staffs';
 import Page from './pages/Page';
 import NewsEvents from './pages/NewsEvents';
+import Semesters from './pages/Semesters';
+
 import Article from './pages/Article';
 
-import Liked from './pages/Liked';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Error from './pages/Error';
@@ -38,17 +40,22 @@ import PrivateRoute from './components/PrivateRoute';
 import ScrollToTop from './components/Common/ScrollToTop';
 import rootReducer from './store/reducers';
 
+import { config } from './services/config';
 import './index.css';
 import './app.css';
 
 const Root = () => {
   //
   const initialState = {};
-  const url = 'https://revit08.netlify.app/' || 'http://localhost:3002/'; // should look something like "https://foo.netlify.com"
-  if (!url)
-    throw new Error(
-      'process.env.REACT_APP_NETLIFY_IDENTITY_URL is blank2, which means you probably forgot to set it in your Netlify environment variables',
-    );
+  const [appConfig, setApConfig] = useState(null);
+  const [appConLoad, setApConLoad] = useState(false);
+  let url = 'https://revit08.netlify.app/' || 'http://localhost:3002/'; // should look something like "https://foo.netlify.com"
+  const currentURL = String(window.location.href);
+  if (currentURL.includes('localhost')) {
+    //url = 'http://localhost:3002/';
+  }
+  const erroMsg = `${url} is blank or invalid or not assigned in env variables `;
+  if (!url) throw new Error(erroMsg);
   const store = createStore(
     rootReducer,
     initialState,
@@ -59,13 +66,32 @@ const Root = () => {
         compose,
     ),
   );
+
+  useEffect(() => {
+    const url = `${config.baseURL}/config-read-all`;
+    fetch(url)
+      .then((results) => results.json())
+      .then((data) => {
+        const appConfigData = [];
+        data.forEach(function (d, j) {
+          appConfigData.push(d.data);
+        });
+        console.log('appConfigData', appConfigData);
+        setApConfig(appConfigData);
+        setApConLoad(true);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        setApConLoad(true);
+      });
+  }, []);
   return (
     <IdentityContextProvider url={url}>
       <Router>
         <Provider store={store}>
           <ScrollToTop />
-
-          <AuthStatusView />
+          {!appConLoad && <MySpinner key={0} text={'Loading...'} />}
+          <AuthStatusView appConfig={appConfig} />
           <div className="pageContainer">
             <Switch>
               <Route path="/" exact component={Home} />
@@ -74,8 +100,8 @@ const Root = () => {
 
               <Route path="/page/:id" exact component={Page} />
               <Route path="/news-events" exact component={NewsEvents} />
+              <Route path="/semesters" exact component={Semesters} />
               <Route path="/article/:id" exact component={Article} />
-              <Route path="/liked" exact component={Liked} />
 
               <Route path="/login" component={Login} />
               <PrivateRoute path="/profile" component={Profile} />
@@ -86,7 +112,7 @@ const Root = () => {
               <Redirect to="/error" />
             </Switch>
           </div>
-          <Footer nav={menuAll} />
+          <Footer nav={menuAll} appConfig={appConfig} />
           <MyToast />
         </Provider>
       </Router>
@@ -94,7 +120,7 @@ const Root = () => {
   );
 };
 
-function AuthStatusView() {
+function AuthStatusView(appConfig) {
   const identity = useIdentityContext();
   const [dialog, setDialog] = React.useState(false);
   const name =
@@ -116,6 +142,7 @@ function AuthStatusView() {
         avatar_url={avatar_url}
         name={name}
         setDialog={setDialog}
+        appConfig={appConfig}
       />
 
       <IdentityModal

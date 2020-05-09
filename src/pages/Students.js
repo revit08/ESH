@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
-
+import { useIdentityContext } from 'react-netlify-identity-widget';
 import Container from 'react-bootstrap/Container';
 import PageTitle from '../components/PageTitle/PageTitle';
 import UserCard from '../components/UserCard/UserCard';
@@ -25,6 +25,10 @@ const Students = ({
   // did mount
   const [UserModelView, UserModelToggle] = useState(false);
   const [userViewData, setUserViewData] = useState(null);
+  const userViewBackData = JSON.parse(JSON.stringify(userViewData));
+  const identity = useIdentityContext();
+  const userLogged =
+    (identity && identity.user && identity.user.email) || 'NoName';
   useEffect(() => {
     loadStudents();
   }, []);
@@ -33,10 +37,34 @@ const Students = ({
     setUserViewData(user);
     UserModelToggle(true);
   };
+  const updateUserView = (data) => {
+    userViewData.data = data;
+    setUserViewData(userViewData);
+  };
+
+  const onInputChange = (group, field, value) => {
+    console.log(`${group} ${field} ${value}`);
+    var ind = userViewData.data[group].findIndex((x) => x.field === field);
+    if (ind >= 0) {
+      userViewData.data[group][ind].val = value;
+    }
+    setUserViewData({});
+    setTimeout(function () {
+      setUserViewData(userViewData);
+    });
+  };
+  const cancelEdit = () => {
+    console.log('userViewData', userViewBackData);
+    setUserViewData({});
+    setTimeout(function () {
+      setUserViewData(userViewBackData);
+    });
+  };
   //console.log(Students);
   if (error) return <Redirect to={'/error'} />;
   if (isLoading) return <MySpinner key={0} text={'Loading...'} />;
-  console.log('Students', students);
+  // console.log('Students', students);
+  console.log('userLogged', userLogged);
 
   return (
     <Fragment>
@@ -59,11 +87,16 @@ const Students = ({
         size="lg"
         show={UserModelView}
         onHide={() => UserModelToggle(false)}
-        aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <UserDetail user={userViewData} type="student" />
+          <UserDetail
+            user={userViewData}
+            type="student"
+            userLogged={userLogged}
+            onInputChange={onInputChange}
+            cancelEdit={cancelEdit}
+          />
         </Modal.Body>
       </Modal>
       {!error && !hasMoreItems && (

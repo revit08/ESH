@@ -1,11 +1,17 @@
 export const menuAll = {
   navMenu: [
-    { class: '', link: '/home', title: 'Home', desc: '' },
+    { class: '', link: '/', title: 'Home', desc: '' },
     { class: '', link: '/students', title: 'Students', desc: '' },
     { class: '', link: '/staffs', title: 'Staffs', desc: '' },
+    { class: '', link: '/semesters', title: 'Semesters', desc: '' },
     { class: '', link: '/page/about', title: 'About', desc: '' },
     { class: '', link: '/page/college', title: 'College', desc: '' },
-    { class: '', link: '/news-events', title: 'News & Events', desc: '' },
+    {
+      class: '',
+      link: '/news-events',
+      title: 'News & Events',
+      desc: '',
+    },
   ],
 
   socialLinks: [

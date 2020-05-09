@@ -56,7 +56,7 @@ const Header = ({
       fixed="top"
     >
       <Container>
-        <Navbar.Brand href="/home"> REVIT 08</Navbar.Brand>
+        <Navbar.Brand href="/"> REVIT 08</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto" activeKey={pathname}>
@@ -70,30 +70,23 @@ const Header = ({
               </LinkContainer>
             ))}
 
-            {/**
-             * <LinkContainer to="/liked">
-              <Nav.Link>
-                <i className="fa fa-heart"></i> Liked{' '}
-                {liked.likedProducts.length > 0 && (
-                  <Badge pill variant="light">
-                    {liked.likedProducts.length}
-                  </Badge>
-                )}
-              </Nav.Link>
-            </LinkContainer>
-             */}
+            
           </Nav>
           <Nav activeKey={pathname}>
             {identity && identity.isLoggedIn ? (
               <>
-                hello {name}
-                {avatar_url && (
-                  <img
-                    alt="user name"
-                    src={avatar_url}
-                    style={{ height: 100, borderRadius: '50%' }}
-                  />
-                )}
+                <Navbar.Text>{name}</Navbar.Text>
+                <LinkContainer to="/profile">
+                  <Nav.Link>
+                    {avatar_url && (
+                      <img
+                        alt="user name"
+                        src={avatar_url}
+                        className="userIcon"
+                      />
+                    )}
+                  </Nav.Link>
+                </LinkContainer>
                 <button
                   className="btn btn-link"
                   onClick={() => setDialog(true)}
